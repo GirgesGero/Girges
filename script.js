@@ -1,6 +1,6 @@
 /* ============================================
-   GIRGES OS - DIGITAL IDENTITY PLATFORM
-   Premium Next-Generation Script
+   GIRGES GABER - DIGITAL IDENTITY & PORTFOLIO
+   Graphic Designer • Frontend Developer • IT Specialist
    ============================================ */
 
 $(document).ready(function () {
@@ -24,7 +24,7 @@ $(document).ready(function () {
         if (typeof AOS !== 'undefined') {
             AOS.refresh();
         }
-    }, 2200);
+    }, 2000);
 
     /* ==========================
        PARTICLES.JS
@@ -32,16 +32,16 @@ $(document).ready(function () {
     if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
             particles: {
-                number: { value: 60, density: { enable: true, value_area: 1000 } },
-                color: { value: '#00f5ff' },
+                number: { value: 65, density: { enable: true, value_area: 1000 } },
+                color: { value: ['#00f5ff', '#7b61ff', '#ff007f', '#00ff88'] },
                 shape: { type: 'circle' },
-                opacity: { value: 0.3, random: true },
+                opacity: { value: 0.35, random: true },
                 size: { value: 3, random: true },
                 line_linked: {
                     enable: true,
-                    distance: 150,
+                    distance: 145,
                     color: '#00f5ff',
-                    opacity: 0.1,
+                    opacity: 0.12,
                     width: 1
                 },
                 move: {
@@ -70,20 +70,21 @@ $(document).ready(function () {
     }
 
     /* ==========================
-       TYPED.JS
+       TYPED.JS (GRAPHIC DESIGN, FRONTEND & IT)
     ========================== */
     if (typeof Typed !== 'undefined') {
         new Typed('#typed-text', {
             strings: [
-                'IT Support Specialist',
-                'Network Technician',
-                'Cybersecurity Enthusiast',
-                'Python Developer',
-                'Digital Problem Solver'
+                'Freelance Graphic Designer 🎨',
+                'Freelance Frontend Web Developer 💻',
+                'Photoshop & Illustrator Specialist ✨',
+                'CorelDRAW & Inkscape Vector Artist 📐',
+                'IT Support & Network Specialist 🛡️',
+                'Available for Freelance & Remote Projects 🚀'
             ],
-            typeSpeed: 60,
-            backSpeed: 35,
-            backDelay: 1500,
+            typeSpeed: 55,
+            backSpeed: 30,
+            backDelay: 1600,
             loop: true,
             showCursor: true,
             cursorChar: '|'
@@ -97,7 +98,7 @@ $(document).ready(function () {
         AOS.init({
             duration: 800,
             once: true,
-            offset: 80
+            offset: 70
         });
     }
 
@@ -107,7 +108,7 @@ $(document).ready(function () {
     $(window).on('scroll', function () {
         const scrollTop = $(window).scrollTop();
         const docHeight = $(document).height() - $(window).height();
-        const progress = (scrollTop / docHeight) * 100;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
         $('#scroll-progress').css('width', progress + '%');
     });
 
@@ -115,7 +116,7 @@ $(document).ready(function () {
        NAVBAR SCROLL
     ========================== */
     $(window).on('scroll', function () {
-        if ($(this).scrollTop() > 50) {
+        if ($(this).scrollTop() > 40) {
             $('.cyber-navbar').addClass('scrolled');
         } else {
             $('.cyber-navbar').removeClass('scrolled');
@@ -131,7 +132,7 @@ $(document).ready(function () {
     $(window).on('scroll', function () {
         let current = '';
         sections.each(function () {
-            const sectionTop = $(this).offset().top - 150;
+            const sectionTop = $(this).offset().top - 140;
             if ($(window).scrollTop() >= sectionTop) {
                 current = $(this).attr('id');
             }
@@ -149,11 +150,11 @@ $(document).ready(function () {
     ========================== */
     $('a[href^="#"]').on('click', function (e) {
         const target = $(this).attr('href');
-        if (target === '#') return;
+        if (!target || target === '#' || !$(target).length) return;
         e.preventDefault();
         $('html, body').animate({
-            scrollTop: $(target).offset().top - 70
-        }, 800);
+            scrollTop: $(target).offset().top - 65
+        }, 700);
     });
 
     /* ==========================
@@ -162,8 +163,8 @@ $(document).ready(function () {
     function initCounters() {
         $('.hero-stat-num').each(function () {
             const $this = $(this);
-            const target = parseInt($this.data('target'));
-            const increment = target / 60;
+            const target = parseInt($this.data('target')) || 0;
+            const increment = target / 50;
             let current = 0;
 
             function updateCounter() {
@@ -180,7 +181,29 @@ $(document).ready(function () {
     }
 
     /* ==========================
-       SKILLS EXPLORER
+       WORKSTATION WINDOW TABS
+    ========================== */
+    $('.ws-tab-btn').on('click', function () {
+        const tab = $(this).data('tab');
+        $('.ws-tab-btn').removeClass('active');
+        $(this).addClass('active');
+        $('.ws-pane').hide().removeClass('active');
+        $('#pane-' + tab).fadeIn(250).addClass('active');
+    });
+
+    /* ==========================
+       SANDBOX INTERACTIVE COUNTER
+    ========================== */
+    let sandboxCount = 0;
+    $('#sandbox-counter-btn').on('click', function () {
+        sandboxCount++;
+        $('#sandbox-count').text(sandboxCount);
+        $(this).addClass('clicked');
+        setTimeout(() => $(this).removeClass('clicked'), 200);
+    });
+
+    /* ==========================
+       SKILLS EXPLORER ACCORDION
     ========================== */
     $('.skill-card').on('click', function () {
         const wasActive = $(this).hasClass('active');
@@ -191,7 +214,7 @@ $(document).ready(function () {
     });
 
     /* ==========================
-       PROJECT FILTERS
+       PROJECT FILTERS (ALL, DESIGN, FRONTEND, NETWORKING, SECURITY)
     ========================== */
     $('.filter-btn').on('click', function () {
         const filter = $(this).data('filter');
@@ -203,16 +226,16 @@ $(document).ready(function () {
         $('.project-item').each(function () {
             const categories = String($(this).data('category') || '').split(' ');
             if (filter === 'all' || categories.indexOf(filter) !== -1) {
-                $(this).removeClass('hidden').show();
+                $(this).removeClass('hidden').fadeIn(300);
                 visibleCount++;
             } else {
-                $(this).addClass('hidden').hide();
+                $(this).addClass('hidden').fadeOut(200);
             }
         });
 
         // Show/hide "no projects" message
         if (visibleCount === 0) {
-            $('#noProjects').show();
+            $('#noProjects').fadeIn(300);
         } else {
             $('#noProjects').hide();
         }
@@ -222,18 +245,18 @@ $(document).ready(function () {
     $('#noProjects').hide();
 
     /* ==========================
-       VCF DOWNLOAD
+       VCF DOWNLOAD (UPDATED MULTI-DISCIPLINARY)
     ========================== */
     const vcfData = [
         'BEGIN:VCARD',
         'VERSION:3.0',
         'N:Gaber;Girges;;;',
         'FN:Girges Gaber',
-        'TITLE:IT Support Specialist',
+        'TITLE:Freelance Graphic Designer | Frontend Web Developer | IT Specialist',
         'TEL;TYPE=CELL:+201277885621',
         'EMAIL:girgesgaber0@gmail.com',
         'URL:https://www.linkedin.com/in/girges-gaber-183ba23a5/',
-        'NOTE:IT Support Specialist, Network Technician & Cybersecurity Enthusiast',
+        'NOTE:Freelance Graphic Designer (Photoshop, CorelDRAW, Illustrator, Inkscape), Frontend Web Developer & IT Systems Specialist',
         'END:VCARD'
     ].join('\n');
 
@@ -261,13 +284,13 @@ $(document).ready(function () {
         e.preventDefault();
         if (navigator.share) {
             navigator.share({
-                title: 'Girges Gaber - Digital Identity',
-                text: 'IT Support Specialist, Network Technician & Cybersecurity Enthusiast',
+                title: 'Girges Gaber | Freelance Graphic Designer • Frontend Developer • IT Specialist',
+                text: 'Girges Gaber - Freelancer in Graphic Design (Photoshop, CorelDRAW, Illustrator, Inkscape), Frontend Web Developer & IT Specialist',
                 url: window.location.href
-            });
+            }).catch(() => {});
         } else {
             navigator.clipboard.writeText(window.location.href);
-            showToast('Link copied to clipboard!');
+            showToast('Portfolio link copied to clipboard!');
         }
     });
 
@@ -276,9 +299,9 @@ $(document).ready(function () {
     ========================== */
     $('#btn-copy-info').on('click', function (e) {
         e.preventDefault();
-        const info = 'Girges Gaber\nPhone: +201277885621\nEmail: girgesgaber0@gmail.com\nLinkedIn: linkedin.com/in/girges-gaber-183ba23a5\nGitHub: github.com/GirgesGero';
+        const info = 'Girges Gaber\nFreelance Graphic Designer • Frontend Developer • IT Specialist\nPhone: +201277885621\nEmail: girgesgaber0@gmail.com\nLinkedIn: linkedin.com/in/girges-gaber-183ba23a5\nGitHub: github.com/GirgesGero';
         navigator.clipboard.writeText(info).then(() => {
-            showToast('Contact info copied!');
+            showToast('Contact information copied!');
         });
     });
 
@@ -332,19 +355,9 @@ $(document).ready(function () {
         icon.addClass(theme === 'dark' ? 'fa-moon' : 'fa-sun');
     }
 
-    /* ==========================
-       MOUSE PARALLAX - PROFILE
-    ========================== */
-    $(document).on('mousemove', function (e) {
-        const moveX = (e.clientX - window.innerWidth / 2) / 50;
-        const moveY = (e.clientY - window.innerHeight / 2) / 50;
-        $('.profile-image, .profile-fallback').css({
-            transform: 'translate(' + moveX + 'px, ' + moveY + 'px)'
-        });
-    });
 
     /* ==========================
-       PROFESSIONAL CURSOR
+       PROFESSIONAL CURSOR & PARTICLES
     ========================== */
     const cursorDot = document.getElementById('cursorDot');
     const cursorRing = document.getElementById('cursorRing');
@@ -358,7 +371,6 @@ $(document).ready(function () {
     let trailX = 0, trailY = 0;
     let particles = [];
     let isTabVisible = true;
-    let animationId = null;
 
     if (canvas) {
         canvas.width = window.innerWidth;
@@ -370,7 +382,6 @@ $(document).ready(function () {
         });
     }
 
-    // Pause animation when tab is hidden
     document.addEventListener('visibilitychange', function() {
         isTabVisible = !document.hidden;
         if (isTabVisible) {
@@ -382,24 +393,28 @@ $(document).ready(function () {
         constructor(x, y) {
             this.x = x;
             this.y = y;
-            this.size = Math.random() * 3 + 1;
+            this.size = Math.random() * 2.8 + 1;
             this.speedX = (Math.random() - 0.5) * 2;
             this.speedY = (Math.random() - 0.5) * 2;
             this.life = 1;
-            this.decay = Math.random() * 0.02 + 0.01;
-            this.color = Math.random() > 0.5 ? '#00f5ff' : '#7b61ff';
+            this.decay = Math.random() * 0.025 + 0.015;
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            const colors = isLight
+                ? ['#0284c7', '#6366f1', '#db2777', '#059669', '#d97706']
+                : ['#00f5ff', '#7b61ff', '#ff007f', '#00ff88'];
+            this.color = colors[Math.floor(Math.random() * colors.length)];
         }
 
         update() {
             this.x += this.speedX;
             this.y += this.speedY;
             this.life -= this.decay;
-            this.size *= 0.98;
+            this.size *= 0.97;
         }
 
         draw() {
             if (ctx) {
-                ctx.globalAlpha = this.life;
+                ctx.globalAlpha = Math.max(0, this.life);
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -423,8 +438,8 @@ $(document).ready(function () {
             mouseGlow.style.top = mouseY + 'px';
         }
 
-        // Add particles on mouse move (reduced frequency)
-        if (canvas && Math.random() > 0.85 && particles.length < 50) {
+        // Add particles on mouse move
+        if (canvas && Math.random() > 0.82 && particles.length < 45) {
             particles.push(new Particle(mouseX, mouseY));
         }
     });
@@ -432,11 +447,11 @@ $(document).ready(function () {
     function animateCursor() {
         if (!isTabVisible) return;
 
-        ringX += (mouseX - ringX) * 0.12;
-        ringY += (mouseY - ringY) * 0.12;
+        ringX += (mouseX - ringX) * 0.14;
+        ringY += (mouseY - ringY) * 0.14;
 
-        trailX += (mouseX - trailX) * 0.06;
-        trailY += (mouseY - trailY) * 0.06;
+        trailX += (mouseX - trailX) * 0.07;
+        trailY += (mouseY - trailY) * 0.07;
 
         if (cursorRing) {
             cursorRing.style.left = ringX + 'px';
@@ -448,23 +463,21 @@ $(document).ready(function () {
             cursorTrail.style.top = trailY + 'px';
         }
 
-        // Animate particles
         if (ctx) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((particle, index) => {
-                particle.update();
-                particle.draw();
-                if (particle.life <= 0) {
-                    particles.splice(index, 1);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].life <= 0) {
+                    particles.splice(i, 1);
                 }
-            });
+            }
         }
 
-        animationId = requestAnimationFrame(animateCursor);
+        requestAnimationFrame(animateCursor);
     }
     animateCursor();
 
-    // Click effect
     $(document).on('mousedown', function () {
         if (cursorRing) cursorRing.classList.add('click');
     });
@@ -472,8 +485,7 @@ $(document).ready(function () {
         if (cursorRing) cursorRing.classList.remove('click');
     });
 
-    // Hover effect on interactive elements
-    $('a, button, .skill-card, .contact-action-card, .cert-card, .social-card, .project-card')
+    $('a, button, .skill-card, .contact-action-card, .cert-card, .social-card, .project-card, .pillar-card, .stack-chip, .btn-hero-primary, .btn-hero-secondary, .btn-hero-cv, .creative-studio-card, .signature-profile-card, .floating-stat-badge, .tool-circle, .swatch-btn, .metric-item')
         .on('mouseenter', function () {
             if (cursorRing) cursorRing.classList.add('hover');
         })
@@ -482,19 +494,68 @@ $(document).ready(function () {
         });
 
     /* ==========================
-       CARD 3D HOVER EFFECT
+       CREATIVE STUDIO INTERACTIVE PALETTE
     ========================== */
-    $('.contact-action-card, .project-card, .cert-card, .social-card')
+    $('.swatch-btn').on('click', function () {
+        const color = $(this).data('color');
+        $('.swatch-btn').removeClass('active');
+        $(this).addClass('active');
+        
+        // Dynamically tint the studio card border and ambient glow
+        $('#studioMainCard').css({
+            'border-color': color,
+            'box-shadow': '0 25px 65px -15px rgba(0, 0, 0, 0.75), 0 0 45px ' + color + '55'
+        });
+        
+        // Aura pulse effect
+        $('.holo-ring-aura').css({
+            'background': 'radial-gradient(circle, ' + color + '77 0%, transparent 70%)',
+            'opacity': '0.95'
+        });
+        setTimeout(() => {
+            $('.holo-ring-aura').css({
+                'background': '',
+                'opacity': ''
+            });
+        }, 1200);
+    });
+
+    /* ==========================
+       HERO STACK CHIPS HOVER SYNC
+    ========================== */
+    $('.stack-chip').on('mouseenter', function () {
+        const tool = $(this).data('tool');
+        if (tool) {
+            $('.profile-tools-icons .tool-circle').removeClass('active-pulse');
+            let toolClass = '';
+            if (tool === 'photoshop') toolClass = '.ps';
+            else if (tool === 'illustrator') toolClass = '.ai';
+            else if (tool === 'coreldraw') toolClass = '.cdr';
+            else if (tool === 'inkscape') toolClass = '.ink';
+            else if (tool === 'frontend') toolClass = '.code';
+            
+            if (toolClass) {
+                $(toolClass).addClass('active-pulse');
+            }
+        }
+    }).on('mouseleave', function () {
+        $('.profile-tools-icons .tool-circle').removeClass('active-pulse');
+    });
+
+    /* ==========================
+       CARD 3D TILT EFFECT
+    ========================== */
+    $('.contact-action-card, .project-card, .cert-card, .social-card, .pillar-card, .creative-studio-card, .signature-profile-card')
         .on('mousemove', function (e) {
             const x = e.pageX - $(this).offset().left;
             const y = e.pageY - $(this).offset().top;
             const centerX = $(this).width() / 2;
             const centerY = $(this).height() / 2;
-            const rotateX = (centerY - y) / 15;
-            const rotateY = (x - centerX) / 15;
+            const rotateX = (centerY - y) / 22;
+            const rotateY = (x - centerX) / 22;
 
             $(this).css({
-                transform: 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-8px)'
+                transform: 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-6px)'
             });
         })
         .on('mouseleave', function () {
@@ -509,86 +570,34 @@ $(document).ready(function () {
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
 
-        // Timeline items
-        gsap.utils.toArray('.timeline-item').forEach((item, i) => {
-            gsap.from(item, {
-                scrollTrigger: {
-                    trigger: item,
-                    start: 'top 85%',
-                    toggleActions: 'play none none none'
-                },
-                opacity: 0,
-                x: i % 2 === 0 ? -50 : 50,
-                duration: 0.8,
-                ease: 'power2.out'
-            });
-        });
-
-        // Skill cards
-        gsap.utils.toArray('.skill-card').forEach((card, i) => {
+        gsap.utils.toArray('.pillar-card').forEach((card, i) => {
             gsap.from(card, {
                 scrollTrigger: {
                     trigger: card,
-                    start: 'top 90%',
+                    start: 'top 88%',
                     toggleActions: 'play none none none'
                 },
                 opacity: 0,
-                y: 40,
-                scale: 0.9,
+                y: 35,
                 duration: 0.6,
-                delay: i * 0.08,
+                delay: i * 0.12,
                 ease: 'power2.out'
             });
         });
-
-        // Cert cards
-        gsap.utils.toArray('.cert-card').forEach((card, i) => {
-            gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: 'top 90%',
-                    toggleActions: 'play none none none'
-                },
-                opacity: 0,
-                y: 40,
-                duration: 0.6,
-                delay: i * 0.1,
-                ease: 'power2.out'
-            });
-        });
-
-        // Project cards (only if AOS is not available, to avoid conflicts)
-        if (typeof AOS === 'undefined') {
-            gsap.utils.toArray('.project-item').forEach((card, i) => {
-                gsap.from(card, {
-                    scrollTrigger: {
-                        trigger: card,
-                        start: 'top 90%',
-                        toggleActions: 'play none none none'
-                    },
-                    opacity: 0,
-                    y: 40,
-                    scale: 0.9,
-                    duration: 0.6,
-                    delay: i * 0.08,
-                    ease: 'power2.out'
-                });
-            });
-        }
     }
 
     /* ==========================
-       GLOW EFFECT ON ORBITS
+       MOUSE PARALLAX - HERO PROFILE CARD
     ========================== */
-    setInterval(() => {
-        $('.orbit-1').toggleClass('orbit-glow');
-    }, 2000);
-    setInterval(() => {
-        $('.orbit-2').toggleClass('orbit-glow');
-    }, 2500);
-    setInterval(() => {
-        $('.orbit-3').toggleClass('orbit-glow');
-    }, 3000);
+    $(document).on('mousemove', function (e) {
+        if (window.innerWidth > 991) {
+            const moveX = (e.clientX - window.innerWidth / 2) / 60;
+            const moveY = (e.clientY - window.innerHeight / 2) / 60;
+            $('.hero-card-wrapper').css({
+                transform: 'translate(' + moveX + 'px, ' + moveY + 'px)'
+            });
+        }
+    });
 
     /* ==========================
        CONTACT CARD CLICK RIPPLE
